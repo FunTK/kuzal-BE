@@ -16,8 +16,8 @@ public class VideoController {
     @Autowired
     private VideoService videoService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    List<Video> getVideos(){
+    @GetMapping
+    List<Video> getVideoList(){
         return videoService.getVideoList();
     }
 

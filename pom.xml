@@ -29,7 +29,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<<<<<<< HEAD
         <!--스프링과 AWS S3 서버 연결 관련 설정 -->
         <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
         <dependency>
@@ -37,7 +36,6 @@
             <artifactId>aws-java-sdk-s3</artifactId>
             <version>1.11.586</version>
         </dependency>
-=======
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,14 +49,12 @@
             <scope>provided</scope>
         </dependency>
 
-    </dependencies>
->>>>>>> ec6ff459d0ee09d896f0ec44f40b0f8e3f72a969
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

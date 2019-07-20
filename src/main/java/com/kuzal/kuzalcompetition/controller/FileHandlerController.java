@@ -16,17 +16,18 @@ public class FileHandlerController {
     @Autowired
     private AmazonS3ClientService amazonS3ClientService;
 
-
-    @PostMapping
+    @CrossOrigin("*")
+    @RequestMapping(value = "/upload", headers = ("content-type=multipart/form-data"), method = RequestMethod.POST)
     public Map<String, String> uploadFile(@RequestPart(value = "file") MultipartFile file)
     {
         System.out.println("start file upload");
+        System.out.println(file);
 
         this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "file [" + file.getOriginalFilename() + "] uploading request submitted successfully.");
-
+        response.put("test", "test");
         return response;
     }
 

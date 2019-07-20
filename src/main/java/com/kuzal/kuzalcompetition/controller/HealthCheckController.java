@@ -10,6 +10,6 @@ public class HealthCheckController {
 
     @RequestMapping(method = RequestMethod.GET)
     Integer healthCheck(){
-        return 200;
+        return 301;
     }
 }

@@ -10,8 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Video {
     @Id
     private String id;
+    private String userId;
     private String title;
     private String url;
-    private String thumnail;
+    private String catId;
+    private String thumnailUrl;
     private String regDate;
+    private Integer views;
 }

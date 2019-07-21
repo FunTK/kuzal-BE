@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VideoServiceImpl implements VideoService{
@@ -16,5 +17,11 @@ public class VideoServiceImpl implements VideoService{
     public List<Video> getVideoList(){
         List<Video> videoList = videoRepository.findAll();
         return videoList;
+    }
+
+    @Override
+    public Optional<Video> getVideo(String id) {
+        Optional<Video> video = videoRepository.findById(id);
+        return video;
     }
 }

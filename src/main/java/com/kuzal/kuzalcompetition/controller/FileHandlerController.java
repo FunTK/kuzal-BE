@@ -20,14 +20,9 @@ public class FileHandlerController {
     @RequestMapping(value = "/upload", headers = ("content-type=multipart/form-data"), method = RequestMethod.POST)
     public Map<String, String> uploadFile(@RequestPart(value = "file") MultipartFile file)
     {
-        System.out.println("start file upload");
-        System.out.println(file);
-
         this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
-
         Map<String, String> response = new HashMap<>();
         response.put("message", "file [" + file.getOriginalFilename() + "] uploading request submitted successfully.");
-        response.put("test", "test");
         return response;
     }
 
@@ -35,13 +30,7 @@ public class FileHandlerController {
     @GetMapping
     public String getFileUrl()
     {
-        System.out.println("start get file");
-
-        //String response = "success";
-
         String fileUrl = this.amazonS3ClientService.selectFileUrl("test.png");
-
-
         return fileUrl;
     }
 

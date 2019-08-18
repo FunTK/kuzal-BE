@@ -8,7 +8,10 @@ import java.util.Optional;
 
 
 public interface VideoService {
-     List<Video> getVideoList();
+    List<Video> getVideoList();
 
     Optional<Video> getVideo(String id);
+
+    Video insertVideo(Video video);
+
 }

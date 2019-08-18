@@ -32,4 +32,9 @@ public class VideoRepositoryImpl  implements VideoCustomRepository {
         return mongoTemplate.findOne(query,Video.class);
     }
 
+    @Override
+    public Video saveVideo(Video video) {
+        return mongoTemplate.insert(video);
+    }
+
 }

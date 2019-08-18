@@ -24,4 +24,9 @@ public class VideoServiceImpl implements VideoService{
         Optional<Video> video = videoRepository.findById(id);
         return video;
     }
+
+    @Override
+    public Video insertVideo(Video video) {
+        return videoRepository.saveVideo(video);
+    }
 }

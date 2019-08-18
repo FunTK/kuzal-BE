@@ -3,11 +3,12 @@ package com.kuzal.kuzalcompetition.model;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Data
 @Document(collection = "video")
-public class Video {
+public class VideoUploadReq {
     @Id
     private String id;
     private String userId;
@@ -16,6 +17,8 @@ public class Video {
     private String catId;
     private String thumnailUrl;
     private String regDate;
-    private String description;
     private Integer views;
+    private String description;
+    private MultipartFile videoFile;
+    private MultipartFile thumnailFile;
 }

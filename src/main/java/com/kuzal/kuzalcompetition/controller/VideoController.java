@@ -2,6 +2,8 @@ package com.kuzal.kuzalcompetition.controller;
 
 
 import com.kuzal.kuzalcompetition.model.Video;
+import com.kuzal.kuzalcompetition.model.VideoUploadReq;
+import com.kuzal.kuzalcompetition.service.AmazonS3ClientService;
 import com.kuzal.kuzalcompetition.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ public class VideoController {
     @Autowired
     private VideoService videoService;
 
+    @Autowired
+    private AmazonS3ClientService amazonS3ClientService;
+
     @GetMapping
     List<Video> getVideoList(){
         return videoService.getVideoList();
@@ -24,6 +29,49 @@ public class VideoController {
     @GetMapping("/{id}")
     Optional<Video> getVideo(@PathVariable("id") String id) {
         return videoService.getVideo(id);
+    }
+
+    /**
+     * video upload
+     * @param videoReq
+     * @return
+     */
+    //@PostMapping("/upload")
+
+    @RequestMapping(value = "/upload", headers = ("content-type=multipart/form-data"), method = RequestMethod.POST)
+    String uploadVideo(@ModelAttribute VideoUploadReq videoReq){
+
+        // video, thumnail check
+        if(videoReq.getVideoFile() == null || videoReq.getThumnailFile() == null){
+            return "Bad request";
+        }
+
+        Video video = new Video();
+        video.setTitle(videoReq.getTitle());
+        video.setRegDate(videoReq.getRegDate());
+        video.setDescription(videoReq.getDescription());
+        video.setUserId(videoReq.getUserId());
+
+        // video upload
+        amazonS3ClientService.uploadFileToS3Bucket(videoReq.getVideoFile(), "video/", true);
+
+        String videoUrl = this.amazonS3ClientService.selectFileUrl(videoReq.getVideoFile().getOriginalFilename());
+        video.setUrl(videoUrl);
+
+        // video data insert
+        System.out.println("video url : " + videoUrl);
+
+        // thumnail upload
+        amazonS3ClientService.uploadFileToS3Bucket(videoReq.getThumnailFile(), "thumnail/", true);
+
+        String thumnailUrl = this.amazonS3ClientService.selectFileUrl(videoReq.getThumnailFile().getOriginalFilename());
+        video.setThumnailUrl(thumnailUrl);
+        System.out.println("thumnail url : " + videoUrl);
+
+        // mongodb insert
+        videoService.insertVideo(video);
+
+        return "Success";
     }
 
 }

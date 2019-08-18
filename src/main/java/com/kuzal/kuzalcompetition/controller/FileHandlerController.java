@@ -20,7 +20,7 @@ public class FileHandlerController {
     @RequestMapping(value = "/upload", headers = ("content-type=multipart/form-data"), method = RequestMethod.POST)
     public Map<String, String> uploadFile(@RequestPart(value = "file") MultipartFile file)
     {
-        this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
+        this.amazonS3ClientService.uploadFileToS3Bucket(file, "video/" , true);
         Map<String, String> response = new HashMap<>();
         response.put("message", "file [" + file.getOriginalFilename() + "] uploading request submitted successfully.");
         return response;

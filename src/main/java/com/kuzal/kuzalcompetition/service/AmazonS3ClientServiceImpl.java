@@ -34,7 +34,7 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
 
 
     @Async
-    public void uploadFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess) {
+    public void uploadFileToS3Bucket(MultipartFile multipartFile, String path, boolean enablePublicReadAccess) {
 
         String fileName = multipartFile.getOriginalFilename();
 
@@ -45,7 +45,7 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
             fos.write(multipartFile.getBytes());
             fos.close();
 
-            PutObjectRequest putObjectRequest = new PutObjectRequest(this.awsS3Bucket, fileName, file);
+            PutObjectRequest putObjectRequest = new PutObjectRequest(this.awsS3Bucket, path + fileName, file);
 
             if (enablePublicReadAccess) {
                 putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead);
@@ -54,13 +54,11 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
             //removing the file created in the server
             file.delete();
         } catch (IOException | AmazonServiceException ex){
-           // logger.error("error [" + ex.getMessage() + "] occurred while uploading [" + fileName + "] ");
+            System.out.println("error [" + ex.getMessage() + "] occurred while uploading [" + fileName + "] ");
+
         }
 
     }
-
-
-
 
 
     @Async
@@ -70,9 +68,6 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
 
     @Override
     public String selectFileUrl(String fileName) {
-
-        System.out.println(this.amazonS3.getUrl(this.awsS3Bucket, fileName));
-
        return this.amazonS3.getUrl(this.awsS3Bucket, fileName).toString();
     }
 }

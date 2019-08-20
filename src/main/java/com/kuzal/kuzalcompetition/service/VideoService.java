@@ -11,4 +11,6 @@ public interface VideoService {
      List<Video> getVideoList();
 
     Optional<Video> getVideo(String id);
+
+    Optional<Video> updateVideo(Video video);
 }

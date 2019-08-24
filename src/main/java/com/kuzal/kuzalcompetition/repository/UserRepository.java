@@ -1,11 +1,9 @@
 package com.kuzal.kuzalcompetition.repository;
 
-import com.kuzal.kuzalcompetition.model.Video;
+import com.kuzal.kuzalcompetition.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public interface VideoRepository extends MongoRepository<Video,String>,
-        VideoCustomRepository {
+public interface UserRepository extends MongoRepository<User, String>, UserCustomRepository {
 }

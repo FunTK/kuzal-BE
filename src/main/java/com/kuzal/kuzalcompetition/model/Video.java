@@ -18,5 +18,4 @@ public class Video {
     private String description;
     private String regDate;
     private Integer views;
-    private String description;
 }

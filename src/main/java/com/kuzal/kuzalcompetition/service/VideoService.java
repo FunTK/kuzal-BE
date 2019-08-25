@@ -12,5 +12,8 @@ public interface VideoService {
 
     Optional<Video> getVideo(String id);
 
+    Video insertVideo(Video video);
+
+
     Optional<Video> updateVideo(Video video);
 }

@@ -39,6 +39,11 @@ public class VideoRepositoryImpl  implements VideoCustomRepository {
     }
 
     @Override
+    public Video saveVideo(Video video) {
+        return mongoTemplate.insert(video);
+    }
+
+    @Override
     public Video updateById(Video updateVideo) {
         logger.info("updateById"+updateVideo.get_id());
         Query query = new Query();

@@ -22,36 +22,52 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
     private String awsS3Bucket;
     private AmazonS3 amazonS3;
 
+
     @Autowired
-    public AmazonS3ClientServiceImpl(Region awsRegion, AWSCredentialsProvider awsCredentialsProvider, String awsS3Bucket) {
+    public AmazonS3ClientServiceImpl(Region awsRegion, AWSCredentialsProvider awsCredentialsProvider, String awsS3Bucket)
+    {
         this.amazonS3 = AmazonS3ClientBuilder.standard()
                 .withCredentials(awsCredentialsProvider)
                 .withRegion(awsRegion.getName()).build();
         this.awsS3Bucket = awsS3Bucket;
     }
 
+
     @Async
-    public void uploadFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess) {
+    public void uploadFileToS3Bucket(MultipartFile multipartFile, String path, boolean enablePublicReadAccess) {
+
         String fileName = multipartFile.getOriginalFilename();
+
         try {
-//creating the file in the server (temporarily)
+            //creating the file in the server (temporarily)
             File file = new File(fileName);
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(multipartFile.getBytes());
             fos.close();
 
-            PutObjectRequest putObjectRequest = new PutObjectRequest(this.awsS3Bucket, fileName, file);
+            PutObjectRequest putObjectRequest = new PutObjectRequest(this.awsS3Bucket, path + fileName, file);
 
             if (enablePublicReadAccess) {
                 putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead);
             }
             this.amazonS3.putObject(putObjectRequest);
-
-
-//removing the file created in the server
+            //removing the file created in the server
             file.delete();
-        } catch (IOException | AmazonServiceException ex) {
+        } catch (IOException | AmazonServiceException ex){
             System.out.println("error [" + ex.getMessage() + "] occurred while uploading [" + fileName + "] ");
+
         }
+
+    }
+
+
+    @Async
+    public void deleteFileFromS3Bucket(String fileName) {
+
+    }
+
+    @Override
+    public String selectFileUrl(String fileName) {
+       return this.amazonS3.getUrl(this.awsS3Bucket, fileName).toString();
     }
 }

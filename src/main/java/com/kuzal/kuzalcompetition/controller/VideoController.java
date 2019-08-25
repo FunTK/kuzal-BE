@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -48,11 +50,12 @@ public class VideoController {
     //@PostMapping("/upload")
 
     @RequestMapping(value = "/upload", headers = ("content-type=multipart/form-data"), method = RequestMethod.POST)
-    String uploadVideo(@ModelAttribute VideoUploadReq videoReq){
-
+    Map<String, String> uploadVideo(@ModelAttribute VideoUploadReq videoReq){
+        Map<String, String> result = new HashMap<String, String>();
         // video, thumnail check
         if(videoReq.getVideoFile() == null || videoReq.getThumnailFile() == null){
-            return "Bad request";
+            result.put("result", "Bad request");
+            return result;
         }
 
         Video video = new Video();
@@ -75,12 +78,12 @@ public class VideoController {
 
         String thumnailUrl = this.amazonS3ClientService.selectFileUrl(videoReq.getThumnailFile().getOriginalFilename());
         video.setThumnailUrl(thumnailUrl);
-        System.out.println("thumnail url : " + videoUrl);
+        System.out.println("thumnail url : " + thumnailUrl);
 
         // mongodb insert
         videoService.insertVideo(video);
-
-        return "Success";
+        result.put("result", "Success");
+        return result;
     }
 
 }

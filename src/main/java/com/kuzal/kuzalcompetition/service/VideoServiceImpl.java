@@ -2,6 +2,7 @@ package com.kuzal.kuzalcompetition.service;
 
 import com.kuzal.kuzalcompetition.model.Video;
 import com.kuzal.kuzalcompetition.repository.VideoRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,11 @@ public class VideoServiceImpl implements VideoService{
     @Override
     public Video insertVideo(Video video) {
         return videoRepository.saveVideo(video);
+    }
+
+    @Override
+    public Optional<Video> updateVideo(Video video) {
+        Video upVideo = videoRepository.updateById(video);
+        return null;
     }
 }

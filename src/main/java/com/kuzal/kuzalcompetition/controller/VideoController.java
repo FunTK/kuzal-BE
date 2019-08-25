@@ -5,6 +5,8 @@ import com.kuzal.kuzalcompetition.model.Video;
 import com.kuzal.kuzalcompetition.model.VideoUploadReq;
 import com.kuzal.kuzalcompetition.service.AmazonS3ClientService;
 import com.kuzal.kuzalcompetition.service.VideoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/videos")
 public class VideoController {
+
+    Logger logger = LoggerFactory.getLogger(VideoController.class);
 
     @Autowired
     private VideoService videoService;
@@ -26,11 +30,16 @@ public class VideoController {
         return videoService.getVideoList();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     Optional<Video> getVideo(@PathVariable("id") String id) {
         return videoService.getVideo(id);
     }
 
+
+    @PostMapping("/update")
+    Optional<Video> updateVideo(@RequestBody Video video) {
+        return videoService.updateVideo(video);
+    }
     /**
      * video upload
      * @param videoReq

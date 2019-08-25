@@ -8,4 +8,5 @@ public interface VideoCustomRepository {
     List<Video> findAll();
     Video findByTitle(String name);
     Video saveVideo(Video video);
+    Video updateById(Video video);
 }

@@ -33,4 +33,9 @@ public class UserController {
         return userService.getUserByEmailAddress(emailAddress);
     }
 
+    @DeleteMapping("/{userId}")
+    boolean deleteUser(@PathVariable String userId){
+        return userService.deleteUserByUserId(userId);
+    }
+
 }

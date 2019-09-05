@@ -2,6 +2,7 @@ package com.kuzal.kuzalcompetition.repository;
 
 import com.kuzal.kuzalcompetition.model.QUser;
 import com.kuzal.kuzalcompetition.model.User;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -32,6 +33,14 @@ public class UserRepositoryImpl implements UserCustomRepository {
         update.set(parse(QUser.user.nickName),nickName);
 
         return mongoTemplate.updateFirst(query,update,User.class);
+    }
+
+    @Override
+    public DeleteResult deleteUserByUserId(String userId){
+        Query query = new Query();
+        query.addCriteria(Criteria.where(parse(QUser.user.id)).is(userId));
+
+        return mongoTemplate.remove(query,User.class);
     }
 
 }

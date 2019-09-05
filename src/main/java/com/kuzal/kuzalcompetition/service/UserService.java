@@ -8,4 +8,5 @@ public interface UserService {
     User findUserByEmailAddress(UserLoginRequest emailAddress);
     UpdateResult updateUserByEmailAddress(String emailAddress, String nickName);
     User getUserByEmailAddress(String emailAddress);
+    boolean deleteUserByUserId(String emailAddress);
 }

@@ -3,6 +3,7 @@ package com.kuzal.kuzalcompetition.service;
 import com.kuzal.kuzalcompetition.model.User;
 import com.kuzal.kuzalcompetition.repository.UserRepository;
 import com.kuzal.kuzalcompetition.request.UserLoginRequest;
+import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,15 @@ public class UserServiceImpl implements UserService{
         User user = User.builder().emailAddress(request.getEmail()).nickName(request.getDisplayName()).regDate(new Date()).build();
         user = userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public UpdateResult updateUserByEmailAddress(String emailAddress, String nickName){
+        return userRepository.updateUserByEmailAddress(emailAddress,nickName);
+    }
+
+    @Override
+    public User getUserByEmailAddress(String emailAddress){
+        return userRepository.getUserByEmailAddress(emailAddress);
     }
 }

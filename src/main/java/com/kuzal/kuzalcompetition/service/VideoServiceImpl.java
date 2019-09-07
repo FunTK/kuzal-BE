@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,12 @@ public class VideoServiceImpl implements VideoService{
     @Override
     public Optional<Video> updateVideo(Video video) {
         Video upVideo = videoRepository.updateById(video);
+        return null;
+    }
+
+    @Override
+    public Optional<Video> updateVideoViews(Video video) {
+        videoRepository.updateViewsById(video);
         return null;
     }
 }

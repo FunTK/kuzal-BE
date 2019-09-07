@@ -1,6 +1,7 @@
 package com.kuzal.kuzalcompetition.controller;
 
 
+import com.kuzal.kuzalcompetition.model.Reply;
 import com.kuzal.kuzalcompetition.model.Video;
 import com.kuzal.kuzalcompetition.model.VideoUploadReq;
 import com.kuzal.kuzalcompetition.service.AmazonS3ClientService;
@@ -28,7 +29,7 @@ public class VideoController {
     private AmazonS3ClientService amazonS3ClientService;
 
     @GetMapping
-    List<Video> getVideoList(){
+    List<Video> getVideoList() {
         return videoService.getVideoList();
     }
 
@@ -42,18 +43,25 @@ public class VideoController {
     Optional<Video> updateVideo(@RequestBody Video video) {
         return videoService.updateVideo(video);
     }
+
+    @PostMapping("/views")
+    Optional<Video> updateVideoViews(@RequestBody Video video) {
+        return videoService.updateVideoViews(video);
+    }
+
+
     /**
      * video upload
+     *
      * @param videoReq
      * @return
      */
     //@PostMapping("/upload")
-
     @RequestMapping(value = "/upload", headers = ("content-type=multipart/form-data"), method = RequestMethod.POST)
-    Map<String, String> uploadVideo(@ModelAttribute VideoUploadReq videoReq){
+    Map<String, String> uploadVideo(@ModelAttribute VideoUploadReq videoReq) {
         Map<String, String> result = new HashMap<String, String>();
         // video, thumnail check
-        if(videoReq.getVideoFile() == null || videoReq.getThumnailFile() == null){
+        if (videoReq.getVideoFile() == null || videoReq.getThumnailFile() == null) {
             result.put("result", "Bad request");
             return result;
         }

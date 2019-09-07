@@ -11,4 +11,5 @@ public interface VideoCustomRepository {
     Video saveVideo(Video video);
     Video updateById(Video video);
     DeleteResult deleteVideoByUserId(String userId);
+    void updateViewsById(Video video);
 }

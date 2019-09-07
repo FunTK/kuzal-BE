@@ -64,4 +64,14 @@ public class VideoRepositoryImpl  implements VideoCustomRepository {
         return mongoTemplate.remove(query,Video.class);
     }
 
+    @Override
+    public void updateViewsById(Video update) {
+        logger.info("updateViewById");
+        Query query = new Query();
+        query.addCriteria(Criteria.where(parse(video._id)).is(new ObjectId(update.get_id())));
+        Update updateCom = new Update();
+        updateCom.set(parse(video.views), update.getViews());
+        mongoTemplate.updateFirst(query, updateCom, "video");
+    }
+
 }

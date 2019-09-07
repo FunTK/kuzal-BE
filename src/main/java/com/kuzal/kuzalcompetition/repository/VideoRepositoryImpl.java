@@ -1,6 +1,7 @@
 package com.kuzal.kuzalcompetition.repository;
 
 import com.kuzal.kuzalcompetition.model.Video;
+import com.mongodb.client.result.DeleteResult;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -54,6 +55,13 @@ public class VideoRepositoryImpl  implements VideoCustomRepository {
         mongoTemplate.updateFirst(query, update, "video");
 
         return updateVideo;
+    }
+
+    @Override
+    public DeleteResult deleteVideoByUserId(String userId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where(parse(video.userId)).is(userId));
+        return mongoTemplate.remove(query,Video.class);
     }
 
 }

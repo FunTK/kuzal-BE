@@ -1,10 +1,8 @@
 package com.kuzal.kuzalcompetition.service;
 
-import com.kuzal.kuzalcompetition.model.Reply;
+import com.kuzal.kuzalcompetition.model.Like;
 import com.kuzal.kuzalcompetition.model.Video;
 
-
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,4 +18,10 @@ public interface VideoService {
     Optional<Video> updateVideo(Video video);
 
     Optional<Video> updateVideoViews(Video video);
+
+    void updateVideoLiked(Like liked);
+
+    Long getVideoLiked(String videoId);
+
+    Like getVideoMyLiked(Like liked);
 }

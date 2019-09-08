@@ -1,12 +1,12 @@
 package com.kuzal.kuzalcompetition.service;
 
+import com.kuzal.kuzalcompetition.model.Like;
 import com.kuzal.kuzalcompetition.model.Video;
+import com.kuzal.kuzalcompetition.repository.LikedRepository;
 import com.kuzal.kuzalcompetition.repository.VideoRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +15,8 @@ public class VideoServiceImpl implements VideoService{
 
     @Autowired
     private VideoRepository videoRepository;
+    @Autowired
+    private LikedRepository likeRepository;
 
     public List<Video> getVideoList(){
         List<Video> videoList = videoRepository.findAll();
@@ -42,5 +44,20 @@ public class VideoServiceImpl implements VideoService{
     public Optional<Video> updateVideoViews(Video video) {
         videoRepository.updateViewsById(video);
         return null;
+    }
+
+    @Override
+    public void updateVideoLiked(Like liked) {
+        likeRepository.insert(liked);
+    }
+
+    @Override
+    public Long getVideoLiked(String videoId) {
+        return likeRepository.countByVideoId(videoId);
+    }
+
+    @Override
+    public Like getVideoMyLiked(Like liked) {
+        return likeRepository.findLikeByVideoId(liked);
     }
 }

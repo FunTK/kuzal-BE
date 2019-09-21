@@ -1,6 +1,7 @@
 package com.kuzal.kuzalcompetition.controller;
 
 
+import com.kuzal.kuzalcompetition.model.Like;
 import com.kuzal.kuzalcompetition.model.Video;
 import com.kuzal.kuzalcompetition.model.VideoUploadReq;
 import com.kuzal.kuzalcompetition.service.AmazonS3ClientService;
@@ -53,7 +54,12 @@ public class VideoController {
         return videoService.updateVideoViews(video);
     }
 
-
+    @PostMapping("/myLiked")
+    Like getVideoMyLiked(@RequestBody Like liked) { return videoService.getVideoMyLiked(liked); }
+    @GetMapping("/liked/{id}")
+    Long getVideoLiked(@PathVariable("id") String videoId) { return videoService.getVideoLiked(videoId); }
+    @PostMapping("/liked")
+    void updateVideoLiked(@RequestBody Like liked) { videoService.updateVideoLiked(liked); }
     /**
      * video upload
      *

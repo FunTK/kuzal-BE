@@ -91,7 +91,7 @@ public class VideoController {
         // video upload
         amazonS3ClientService.uploadFileToS3Bucket(videoReq.getVideoFile(), "video/", true);
 
-        String videoUrl = this.amazonS3ClientService.selectFileUrl(videoReq.getVideoFile().getOriginalFilename());
+        String videoUrl = this.amazonS3ClientService.selectFileUrl("video", videoReq.getVideoFile().getOriginalFilename());
         video.setUrl(videoUrl);
 
         // video data insert
@@ -100,7 +100,7 @@ public class VideoController {
         // thumnail upload
         amazonS3ClientService.uploadFileToS3Bucket(videoReq.getThumbnailFile(), "thumnail/", true);
 
-        String thumbnailUrl = this.amazonS3ClientService.selectFileUrl(videoReq.getThumbnailFile().getOriginalFilename());
+        String thumbnailUrl = this.amazonS3ClientService.selectFileUrl("thumnail", videoReq.getThumbnailFile().getOriginalFilename());
         video.setThumbnailUrl(thumbnailUrl);
         System.out.println("thumnail url : " + thumbnailUrl);
 

@@ -30,7 +30,7 @@ public class FileHandlerController {
     @GetMapping
     public String getFileUrl()
     {
-        String fileUrl = this.amazonS3ClientService.selectFileUrl("test.png");
+        String fileUrl = this.amazonS3ClientService.selectFileUrl("video", "test.png");
         return fileUrl;
     }
 

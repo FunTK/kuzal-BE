@@ -8,6 +8,6 @@ public interface AmazonS3ClientService {
 
     void deleteFileFromS3Bucket(String fileName);
 
-    String selectFileUrl (String fileName);
+    String selectFileUrl (String folder, String fileName);
 
 }

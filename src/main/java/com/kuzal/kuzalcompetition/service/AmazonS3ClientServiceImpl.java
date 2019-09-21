@@ -67,7 +67,7 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
     }
 
     @Override
-    public String selectFileUrl(String fileName) {
-       return this.amazonS3.getUrl(this.awsS3Bucket, fileName).toString();
+    public String selectFileUrl(String folder, String fileName) {
+       return this.amazonS3.getUrl(this.awsS3Bucket, folder + "/" + fileName ).toString();
     }
 }

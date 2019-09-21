@@ -10,9 +10,9 @@ public class VideoUploadReq {
     private String title;
     private String url;
     private String catId;
-    private String thumnailUrl;
+    private String thumbnailUrl;
     private String regDate;
     private String description;
     private MultipartFile videoFile;
-    private MultipartFile thumnailFile;
+    private MultipartFile thumbnailFile;
 }

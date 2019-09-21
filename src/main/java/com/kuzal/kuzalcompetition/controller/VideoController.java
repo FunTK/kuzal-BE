@@ -76,7 +76,7 @@ public class VideoController {
     Map<String, String> uploadVideo(@ModelAttribute VideoUploadReq videoReq) {
         Map<String, String> result = new HashMap<String, String>();
         // video, thumnail check
-        if (videoReq.getVideoFile() == null || videoReq.getThumnailFile() == null) {
+        if (videoReq.getVideoFile() == null || videoReq.getThumbnailFile() == null) {
             result.put("result", "Bad request");
             return result;
         }
@@ -98,11 +98,11 @@ public class VideoController {
         System.out.println("video url : " + videoUrl);
 
         // thumnail upload
-        amazonS3ClientService.uploadFileToS3Bucket(videoReq.getThumnailFile(), "thumnail/", true);
+        amazonS3ClientService.uploadFileToS3Bucket(videoReq.getThumbnailFile(), "thumnail/", true);
 
-        String thumnailUrl = this.amazonS3ClientService.selectFileUrl(videoReq.getThumnailFile().getOriginalFilename());
-        video.setThumnailUrl(thumnailUrl);
-        System.out.println("thumnail url : " + thumnailUrl);
+        String thumbnailUrl = this.amazonS3ClientService.selectFileUrl(videoReq.getThumbnailFile().getOriginalFilename());
+        video.setThumbnailUrl(thumbnailUrl);
+        System.out.println("thumnail url : " + thumbnailUrl);
 
         // mongodb insert
         videoService.insertVideo(video);

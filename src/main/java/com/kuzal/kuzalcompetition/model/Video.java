@@ -14,7 +14,7 @@ public class Video {
     private String title;
     private String url;
     private String catId;
-    private String thumnailUrl;
+    private String thumbnailUrl;
     private String description;
     private String regDate;
     private Integer views;

@@ -38,6 +38,11 @@ public class VideoController {
         return videoService.getVideoList(userId);
     }
 
+    @GetMapping("/category/{catId}")
+    List<Video> getVideosByCategory(@PathVariable("catId") String catId) {
+        return videoService.getVideoListByCatId(catId);
+    }
+
     @GetMapping("/get/{id}")
     Optional<Video> getVideo(@PathVariable("id") String id) {
         return videoService.getVideo(id);

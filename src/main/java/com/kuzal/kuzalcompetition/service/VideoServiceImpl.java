@@ -31,6 +31,11 @@ public class VideoServiceImpl implements VideoService{
     }
 
     @Override
+    public List<Video> getVideoListByCatId(String catId) {
+        return videoRepository.findByCatId(catId);
+    }
+
+    @Override
     public Optional<Video> getVideo(String id) {
         Optional<Video> video = videoRepository.findById(id);
         return video;

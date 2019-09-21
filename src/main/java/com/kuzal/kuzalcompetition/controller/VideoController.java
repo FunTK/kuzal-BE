@@ -1,7 +1,6 @@
 package com.kuzal.kuzalcompetition.controller;
 
 
-import com.kuzal.kuzalcompetition.model.Reply;
 import com.kuzal.kuzalcompetition.model.Video;
 import com.kuzal.kuzalcompetition.model.VideoUploadReq;
 import com.kuzal.kuzalcompetition.service.AmazonS3ClientService;
@@ -31,6 +30,11 @@ public class VideoController {
     @GetMapping
     List<Video> getVideoList() {
         return videoService.getVideoList();
+    }
+
+    @GetMapping("/my/{userId}")
+    List<Video> getMyVideoList(@PathVariable("userId") String userId) {
+        return videoService.getVideoList(userId);
     }
 
     @GetMapping("/get/{id}")
@@ -71,6 +75,7 @@ public class VideoController {
         video.setRegDate(videoReq.getRegDate());
         video.setDescription(videoReq.getDescription());
         video.setUserId(videoReq.getUserId());
+        video.setCatId(videoReq.getCatId());
 
         // video upload
         amazonS3ClientService.uploadFileToS3Bucket(videoReq.getVideoFile(), "video/", true);

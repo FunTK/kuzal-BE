@@ -2,11 +2,9 @@ package com.kuzal.kuzalcompetition.service;
 
 import com.kuzal.kuzalcompetition.model.Video;
 import com.kuzal.kuzalcompetition.repository.VideoRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +16,13 @@ public class VideoServiceImpl implements VideoService{
 
     public List<Video> getVideoList(){
         List<Video> videoList = videoRepository.findAll();
+        return videoList;
+    }
+
+    @Override
+    public List<Video> getVideoList(String userId) {
+        System.out.println("userId: " + userId);
+        List<Video> videoList = videoRepository.findByUserId(userId);
         return videoList;
     }
 

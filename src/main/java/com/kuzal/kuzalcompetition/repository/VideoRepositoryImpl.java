@@ -33,10 +33,17 @@ public class VideoRepositoryImpl  implements VideoCustomRepository {
 
     // for reference
     @Override
-    public Video findByTitle(String name){
+    public List<Video> findByCatId(String catId){
         Query query = new Query();
-        query.addCriteria(Criteria.where(parse(video.title)).is(name));
-        return mongoTemplate.findOne(query,Video.class);
+        query.addCriteria(Criteria.where(parse(video.catId)).is(catId));
+        return mongoTemplate.find(query,Video.class);
+    }
+
+    @Override
+    public List<Video> findByUserId(String userId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where(parse(video.userId)).is(userId));
+        return mongoTemplate.find(query,Video.class);
     }
 
     @Override
